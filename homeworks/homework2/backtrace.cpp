@@ -14,10 +14,8 @@ char* demangle(const char* mangled_name) {
 void myfunc3(int size)
 {
     int nptrs;
-    void *buffer[size];  
+    void *buffer[size];
     char **strings;
-    // char* ch = "artash slvksvkvs;vs; ksfksfkssl;"
-    // char** str = { "ARTASH AGFJKAJA AGKJ AL",}
 
    nptrs = backtrace(buffer, size);
     printf("backtrace() returned %d addresses\n", nptrs);
@@ -27,12 +25,12 @@ void myfunc3(int size)
         perror("backtrace_symbols");
         exit(EXIT_FAILURE);
     }
-
+ 
     for (int i = 0; i < nptrs; i++) {
         char* line = strings[i];
         char* underscore = strchr(line, '_');
         char* plus = strchr(line, '+');
-        // _funcii+0x1402
+        
         if (underscore && plus && plus > underscore) {
             size_t len = plus - underscore - 1;
             char func_name[len + 1];
@@ -46,6 +44,7 @@ void myfunc3(int size)
             }
             else {
                 std::cout << "Cant demangle the function: " << func_name << std::endl;
+
             }
 
             free(demangled);
@@ -65,7 +64,7 @@ void myfunc(int ncalls,int size)
 
 int main(int argc, char *argv[])
 {
-    if (argc != 3) {  
+    if (argc != 3) {  // Corrected argument check
         fprintf(stderr, "%s num-calls buffer-size\n", argv[0]);
         exit(EXIT_FAILURE);
     }
