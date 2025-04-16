@@ -9,10 +9,6 @@ struct Process {
 
     Process(pid_t id, size_t bt) : pid(id), burst_time(bt), waitingTime(0) {}
 
-    bool compareArrival(const Process& a, const Process& b) {
-        return a.arrivalTime < b.arrivalTime;
-    }
-
 };
 
 class Scheduler {
